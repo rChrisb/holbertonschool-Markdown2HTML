@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""some script to start"""
 import sys
 import os
 
