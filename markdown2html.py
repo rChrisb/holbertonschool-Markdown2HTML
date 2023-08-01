@@ -15,10 +15,9 @@ if __name__ == "__main__":
         sys.stderr.write(f"Missing {sys.argv[1]}\n")
         sys.exit(1)
 
-
     with open(sys.argv[1], 'r') as file:
         lines = file.readlines()
-    with open(sys.argv[1], 'w') as file:
+    with open(sys.argv[2], 'w') as file:
         for line in lines:
             line = line.strip()
             if line.startswith("#"):
