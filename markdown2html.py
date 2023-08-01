@@ -23,7 +23,7 @@ if __name__ == "__main__":
             if line.startswith("#"):
                 level = line.count("#")
                 text = line.strip("#").strip()
-                html = f"<h{level}>text</h{level}>\n"
+                html = f"<h{level}>{text}</h{level}>\n"
                 file.write(html)
             else:
                 file.write(f"{line}\n")
