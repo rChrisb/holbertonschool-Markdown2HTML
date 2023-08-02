@@ -30,7 +30,7 @@ if __name__ == "__main__":
             lines_in_html.append(html)
             i += 1
 
-        # lists
+        # unordered lists
         elif line.startswith("-"):
             lines_in_html.append("<ul>\n")
             while i < len(lines) and lines[i].strip().startswith("-"):
@@ -39,6 +39,16 @@ if __name__ == "__main__":
                 lines_in_html.append(html)
                 i += 1
             lines_in_html.append("</ul>\n")
+
+        # ordered lists
+        elif line.startswith("*"):
+            lines_in_html.append("<ol>\n")
+            while i < len(lines) and lines[i].strip().startswith("*"):
+                text = lines[i].strip("*").strip()
+                html = f"<li>{text}</li>\n"
+                lines_in_html.append(html)
+                i += 1
+            lines_in_html.append("</ol>\n")
 
         else:
             lines_in_html.append(f"{line}")
