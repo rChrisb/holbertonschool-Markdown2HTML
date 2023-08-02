@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """some script to start"""
 
-
 import sys
 import os
-
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
@@ -17,13 +15,34 @@ if __name__ == "__main__":
 
     with open(sys.argv[1], 'r') as file:
         lines = file.readlines()
+
+    lines_in_html = []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+
+        # headings
+        if line.startswith("#"):
+            level = line.count("#")
+            text = line.strip("#").strip()
+            html = f"<h{level}>{text}</h{level}>\n"
+            lines_in_html.append(html)
+            i += 1
+
+        # lists
+        elif line.startswith("-"):
+            lines_in_html.append("<ul>\n")
+            while i < len(lines) and lines[i].strip().startswith("-"):
+                text = lines[i].strip("-").strip()
+                html = f"<li>{text}</li>\n"
+                lines_in_html.append(html)
+                i += 1
+            lines_in_html.append("</ul>\n")
+
+        else:
+            lines_in_html.append(f"{line}")
+            i += 1
+
     with open(sys.argv[2], 'w') as file:
-        for line in lines:
-            line = line.strip()
-            if line.startswith("#"):
-                level = line.count("#")
-                text = line.strip("#").strip()
-                html = f"<h{level}>{text}</h{level}>\n"
-                file.write(html)
-            else:
-                file.write(f"{line}\n")
+        file.writelines(lines_in_html)
